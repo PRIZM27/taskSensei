@@ -1,0 +1,1 @@
+export const FIREBASE_URL = 'https://tasksreact-e808b-default-rtdb.firebaseio.com';

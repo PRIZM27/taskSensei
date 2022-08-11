@@ -1,0 +1,426 @@
+*, :before, :after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.btn-round--large {
+  width: 85%;
+  height: 4rem;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+  text-decoration: none;
+  display: flex;
+}
+
+@media (max-width: 67.5em) {
+  .btn-round--large {
+    height: 2.5rem;
+    font-size: 1.2rem;
+  }
+}
+
+.btn-round--med {
+  width: 85%;
+}
+
+.task__form {
+  grid-area: task-form;
+  display: flex;
+}
+
+.task__input {
+  width: 50%;
+  height: 6rem;
+  font-size: 2rem;
+}
+
+.task__input:focus {
+  outline: none;
+}
+
+.header {
+  width: 600px;
+  height: 600px;
+  text-align: center;
+  background-color: pink;
+  border: 2px solid #00f;
+}
+
+.header p {
+  text-align: center;
+}
+
+.task__grid {
+  border: 1px solid #000;
+  grid-area: task-grid;
+  grid-template-rows: 5rem 35rem;
+  grid-template-columns: repeat(3, 15vw);
+  gap: 2rem;
+  padding: 1rem;
+  display: grid;
+  overflow: scroll;
+}
+
+.task__squares-container {
+  grid-area: 2 / 1 / -1 / -1;
+  grid-template-rows: repeat(auto-fit, minmax(8rem, 15rem));
+  grid-template-columns: repeat(auto-fit, minmax(7rem, 15rem));
+  gap: 2.4rem;
+  padding: 1rem;
+  display: grid;
+}
+
+.task__container {
+  min-height: 50%;
+  animation: easeIn .8s;
+}
+
+.task__pane {
+  flex-direction: column;
+  grid-area: 1 / 2 / -1;
+  row-gap: 2.4rem;
+  display: flex;
+}
+
+.task__pane * {
+  text-align: center;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, Courier New, monospace;
+}
+
+.QNcqEW_container {
+  max-width: 80vw;
+  max-height: 80vw;
+  background: -moz-linear-gradient(90deg, #7d7986 0%, #2c0094 30%);
+  background: -webkit-linear-gradient(90deg, #7d7986 0%, #2c0094 30%);
+  border: 1px solid #000;
+  border-radius: 10px;
+  grid-template: "QNcqEW_task-form QNcqEW_task-list-pane" 10rem
+                 "QNcqEW_task-grid QNcqEW_task-list-pane" 25vw
+                 / 2fr 1fr;
+  margin: 5rem auto;
+  padding: 3rem;
+  display: grid;
+}
+
+.QNcqEW_task__container {
+  min-height: 50%;
+  animation: QNcqEW_easeIn .8s;
+}
+
+.qLZDnW_task__form {
+  grid-area: qLZDnW_task-form;
+  display: flex;
+}
+
+.qLZDnW_task__input {
+  width: 50%;
+  height: 6rem;
+  font-size: 2rem;
+}
+
+.qLZDnW_task__input:focus {
+  outline: none;
+}
+
+.j2-pEW_task__grid {
+  border: 1px solid #000;
+  grid-area: j2-pEW_task-grid;
+  grid-template-rows: 5rem 35rem;
+  grid-template-columns: repeat(3, 15vw);
+  gap: 2rem;
+  padding: 1rem;
+  display: grid;
+  overflow: scroll;
+}
+
+.j2-pEW_task__squares-container {
+  grid-area: 2 / 1 / -1 / -1;
+  grid-template-rows: repeat(auto-fit, minmax(8rem, 15rem));
+  grid-template-columns: repeat(auto-fit, minmax(7rem, 15rem));
+  gap: 2.4rem;
+  padding: 1rem;
+  display: grid;
+}
+
+.incomplete__container, .in-progress__container, .complete__container {
+  max-width: 20rem;
+  height: 30rem;
+  background: -moz-linear-gradient(270deg, #e8e6eb 31%, #a697c8 100%);
+  background: -webkit-linear-gradient(270deg, #e8e6eb 31%, #a697c8 100%);
+  border-radius: 1rem;
+  flex-direction: column;
+  align-content: space-between;
+  padding: 1rem;
+  display: flex;
+}
+
+._7_Yt5q_task__square {
+  max-width: 20rem;
+  max-height: 4rem;
+  background: #fff;
+  border-radius: 1rem;
+  flex-direction: column;
+  align-content: space-between;
+  align-items: flex-start;
+  gap: .5rem;
+  padding: 1rem;
+  display: flex;
+}
+
+._7_Yt5q_task__date, ._7_Yt5q_task__heading {
+  height: 1rem;
+  margin: 0;
+}
+
+._7_Yt5q_task__details {
+  max-width: 80%;
+  height: 8rem;
+  background-color: #fff;
+  margin: 0;
+}
+
+.kykXwa_task__container {
+  min-height: 50%;
+  animation: kykXwa_easeIn .8s;
+}
+
+.kykXwa_task__pane {
+  flex-direction: column;
+  grid-area: 1 / 2 / -1;
+  row-gap: 2.4rem;
+  display: flex;
+}
+
+.kykXwa_task__pane * {
+  text-align: center;
+}
+
+.Y7Z4Ha_task__heading {
+  text-transform: uppercase;
+  font-size: 2.4rem;
+}
+
+.Y7Z4Ha_task__date {
+  font-size: 2rem;
+}
+
+.Y7Z4Ha_task__major {
+  text-transform: uppercase;
+  font-size: 2.2rem;
+  font-weight: 400;
+}
+
+.Y7Z4Ha_save-or-discard {
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  position: relative;
+}
+
+.Y7Z4Ha_save-or-discard .Y7Z4Ha_save-btn {
+  color: #fff;
+  background-color: #20ade9;
+}
+
+.Y7Z4Ha_save-or-discard .Y7Z4Ha_edit-btn {
+  background-color: #faf2ea;
+  display: none;
+  position: absolute;
+  top: -.1px;
+}
+
+.Y7Z4Ha_save-or-discard .Y7Z4Ha_delete-btn {
+  color: #fff;
+  background-color: #997070;
+}
+
+.Y7Z4Ha_form__save-or-discard {
+  flex-direction: column;
+  display: flex;
+}
+
+.Y7Z4Ha_form__status-btns-box {
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-bottom: 2rem;
+  display: flex;
+}
+
+@media (max-width: 87.5em) {
+  .Y7Z4Ha_form__status-btns-box {
+    flex-flow: column;
+    row-gap: 1.2rem;
+  }
+}
+
+.Y7Z4Ha_form__radio-group {
+  flex-basis: 23%;
+}
+
+.Y7Z4Ha_form__input-radio {
+  display: none;
+  position: relative;
+  top: 40%;
+}
+
+.Y7Z4Ha_form__radio-label--incomplete, .Y7Z4Ha_form__radio-label--complete, .Y7Z4Ha_form__radio-label--in-progress {
+  cursor: pointer;
+  flex-direction: column;
+  display: flex;
+}
+
+.Y7Z4Ha_form__radio-btn {
+  display: flex;
+}
+
+@media (max-width: 87.5em) {
+  .Y7Z4Ha_form__radio-btn {
+    justify-content: center;
+  }
+}
+
+.Y7Z4Ha_form__radio-btn:after {
+  content: "";
+  height: 4rem;
+  border: 1px solid #000;
+  border-radius: 5px;
+  flex-basis: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+@media (max-width: 87.5em) {
+  .Y7Z4Ha_form__radio-btn:after {
+    flex-basis: 85%;
+  }
+}
+
+@media (max-width: 67.5em) {
+  .Y7Z4Ha_form__radio-btn:after {
+    height: 2.5rem;
+  }
+}
+
+.Y7Z4Ha_form__radio-label--incomplete .Y7Z4Ha_form__radio-btn:after {
+  content: "INCOMPLETE";
+}
+
+.Y7Z4Ha_form__radio-label--in-progress .Y7Z4Ha_form__radio-btn:after {
+  content: "IN PROGRESS";
+}
+
+.Y7Z4Ha_form__radio-label--complete .Y7Z4Ha_form__radio-btn:after {
+  content: "COMPLETE";
+}
+
+.Y7Z4Ha_form__input-radio:checked ~ .Y7Z4Ha_form__radio-label--incomplete .Y7Z4Ha_form__radio-btn:after {
+  color: #fff;
+  background-color: #cfa493;
+}
+
+.Y7Z4Ha_form__input-radio:checked ~ .Y7Z4Ha_form__radio-label--in-progress .Y7Z4Ha_form__radio-btn:after {
+  color: #fff;
+  background-color: #cfc293;
+}
+
+.Y7Z4Ha_form__input-radio:checked ~ .Y7Z4Ha_form__radio-label--complete .Y7Z4Ha_form__radio-btn:after {
+  color: #fff;
+  background-color: #93cfc3;
+}
+
+.Y7Z4Ha_form__sub-task__input-field {
+  width: 85%;
+  height: 5rem;
+  border: 1px solid #000;
+  margin: 2rem 0;
+}
+
+@media (max-width: 87.5em) {
+  .Y7Z4Ha_form__sub-task__input-field {
+    width: 85%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 67.5em) {
+  .Y7Z4Ha_form__sub-task__input-field {
+    height: 3rem;
+  }
+}
+
+.Y7Z4Ha_form__sub-task__input-field:focus {
+  outline: none;
+  box-shadow: 1px 1px 2px .5px #929292b3;
+}
+
+.Y7Z4Ha_subTask__container {
+  columns: 100px 2;
+}
+
+.Y7Z4Ha_subTask__list {
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.8rem;
+  list-style-type: none;
+  display: flex;
+}
+
+.Y7Z4Ha_subTask__item {
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+.btn-round--large {
+  width: 85%;
+  height: 4rem;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+  text-decoration: none;
+  display: flex;
+}
+
+@media (max-width: 67.5em) {
+  .btn-round--large {
+    height: 2.5rem;
+    font-size: 1.2rem;
+  }
+}
+
+.btn-round--med {
+  width: 85%;
+}
+
+/*# sourceMappingURL=index.034b6250.css.map */

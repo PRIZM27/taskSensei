@@ -1,0 +1,50 @@
+@import '../abstracts/mixins';
+
+.test__input { 
+  background-color: black;
+  width: 400px;
+  height: 200px;
+}
+
+.container { 
+  max-width: 80vw;
+  max-height: 80vw;
+  padding: 3rem;
+  margin: 5rem auto;
+
+
+
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 14rem 25vw;
+  gap: .8rem;
+  grid-template-areas: 
+  'task-form task-pane'
+  'task-grid task-pane';
+
+  @include respond(tab-port){
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr) 2fr;
+    gap: .8rem;
+    grid-template-areas: 
+    'task-form'
+    'task-grid'
+    'task-pane';
+  }
+
+
+
+  border: 1px solid black;
+  border-radius: 10px;
+
+  background: hsla(260, 5%, 50%, 1);
+
+  background: linear-gradient(90deg, hsla(260, 5%, 50%, 1) 0%, hsla(258, 100%, 29%, 1) 30%);
+  
+  background: -moz-linear-gradient(90deg, hsla(260, 5%, 50%, 1) 0%, hsla(258, 100%, 29%, 1) 30%);
+  
+  background: -webkit-linear-gradient(90deg, hsla(260, 5%, 50%, 1) 0%, hsla(258, 100%, 29%, 1) 30%);
+  
+
+}
+

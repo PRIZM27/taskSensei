@@ -1,0 +1,21 @@
+
+.profile { 
+  &__container { 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 20rem);
+    gap:1rem;
+
+    width: 70vw;
+    height: 70vw;
+
+
+  }
+}
+
+h1 { 
+  color: black;
+  text-align: center;
+  grid-column: 1 / -1;
+  grid-row: 1;
+}

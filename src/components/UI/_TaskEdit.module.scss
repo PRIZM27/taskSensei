@@ -1,0 +1,67 @@
+@import '../../assets/sass/abstracts/mixins';
+
+.form { 
+
+  &__editing{
+    display:flex;
+    flex-direction: column;
+
+    @include respond(phone){
+      flex-direction: row;
+      grid-column: 1;
+      grid-row: 1;
+    }
+  
+  }
+
+  &__task-details__group { 
+
+
+  }
+
+  &__label--edit{
+    font-size: 1.6rem;
+    
+    @include respond(phone){
+      width: 100%;
+    }
+  }
+
+
+
+  &__input-edit--task{
+    color: gray;
+    width: 50%;
+    height: 4rem;
+    font-size:1.6rem;
+    border-radius: .8rem;
+    border-style: none;
+
+  
+  
+  }
+
+  &__input-edit--date { 
+    width: 158%;
+    height: 4rem;
+
+    @include respond(tab-land){
+      width: 90%;
+    }
+  }
+
+  &__input-edit--task, &__input-edit--date  { 
+    
+    @include respond(tab-port) { 
+      height: 2.2rem;
+      width: min-content;
+      // word-wrap: break-word;
+    }
+
+   
+  
+  }
+  }
+
+  
+

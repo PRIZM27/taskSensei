@@ -1,0 +1,73 @@
+
+@import '../animations/animations';
+
+.task { 
+  &__square{
+
+    display: grid;
+    grid-template-columns: 1fr, 2fr;
+    grid-template-rows: repeat(2, 2rem);
+    
+    // display: flex;
+    // flex-flow: column wrap;
+    // flex-basis: min-content;
+    // flex-shrink: 1;
+    // align-items: flex-start;
+    // align-content: space-between;
+    
+    // gap: .5rem;
+
+    padding: .8rem;
+    // max-width: 20rem;
+    // min-height: 4rem;
+    
+    border-radius: .8rem;
+    background: #fff;
+    cursor: pointer;
+    // calculate min-width and min-height after seeing behavior
+  }
+
+  &__heading { 
+    height: 1rem;
+    margin: 0;
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  &__date { 
+    height: 1rem;
+    margin: 0;
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+
+
+  // &__details { 
+  //   max-width: 80%;
+  //   height: 8rem;
+  //   margin: 0;
+  //   background-color: #fff;
+  // }
+ 
+}
+
+.status__icon { 
+  height: 2.5rem;
+  width: 2rem;
+  
+  grid-column: 1;
+  grid-row: 1 / -1;
+  justify-self: start;
+
+  align-self: center;
+  background-color: transparent;
+  fill: #3E0085;
+}
+
+
+
+.current-square { 
+  border: 3px solid #20ade9;
+  animation: pulse 1.8s linear infinite;
+}

@@ -1,0 +1,352 @@
+@use './Buttons/btn';
+
+@import '../themes/colors';
+
+@import '../animations/animations';
+@import '../abstracts/mixins';
+
+
+.task {
+  &__pane {
+    grid-area: task-pane;
+    width: 90%;
+    align-self: stretch;
+    justify-self: center;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+
+    animation: easeIn .3s linear;
+    min-height: 100%;
+    border: 1px solid black;
+    border-radius: 1rem;
+
+    background: linear-gradient(270deg, hsla(264, 11%, 91%, 1) 31%, hsla(258, 31%, 69%, 1) 100%);
+    background: -moz-linear-gradient(270deg, hsla(264, 11%, 91%, 1) 31%, hsla(258, 31%, 69%, 1) 100%);
+    background: -webkit-linear-gradient(270deg, hsla(264, 11%, 91%, 1) 31%, hsla(258, 31%, 69%, 1) 100%);
+
+  > * { 
+    border: 1px solid red;
+    width: 100%;
+  }
+
+  @include respond(med-desktop){
+    gap: 1.2rem;
+    width: 100%;
+    
+  }
+
+  @include respond(tab-port){
+    flex-direction: row;
+    flex-wrap: wrap;
+
+  }
+
+  @include respond(phone){
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas: 
+    'taskname taskdate'
+    'taskbtns taskbtns'
+    'statusbtns statusbtns'
+  }
+  }
+
+  // &__container {
+  //   animation: easeIn .3s linear;
+  //   min-height: 100%;
+  //   border: 1px solid black;
+  //   border-radius: 1rem;
+
+  //   background: linear-gradient(270deg, hsla(264, 11%, 91%, 1) 31%, hsla(258, 31%, 69%, 1) 100%);
+  //   background: -moz-linear-gradient(270deg, hsla(264, 11%, 91%, 1) 31%, hsla(258, 31%, 69%, 1) 100%);
+  //   background: -webkit-linear-gradient(270deg, hsla(264, 11%, 91%, 1) 31%, hsla(258, 31%, 69%, 1) 100%);
+
+  // }
+
+  &__heading {
+    font-size: 2.4rem;
+    text-transform: uppercase;
+    text-align: center;
+    // @include respond(med-desktop) {
+    //   font-size: 1.8rem;
+    // }
+  }
+
+  &__date {
+    font-size: 1rem;
+    text-align: center;
+    font-size: 2rem;
+    @include respond(med-desktop) {
+      font-size: 1.8rem;
+    }
+  }
+
+  &__date, &__heading { 
+  @include respond(tab-port){
+     font-size: 1.4rem;
+     height: min-content;
+    }
+  }
+
+  &__major {
+    font-size: 2.2rem;
+    font-weight: $medium;
+    text-transform: uppercase;
+  }
+
+  &__message { 
+    color: white;
+    font-size: 2rem;
+    transform: translateY(20rem);
+    text-align: center;
+    font-weight: bold;
+  }
+}
+
+// .save-or-discard {
+//   width: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   gap: 1rem;
+//   position: relative;
+//   margin-top: 2rem;
+//   margin-bottom: 2rem;
+
+//   @include respond(tab-land) { 
+//     flex-direction: row;
+//   }
+
+  // Styling for save or discard form
+  .save-or-discard {
+
+    // width: 75%;
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  
+    justify-content: space-evenly;
+    gap: 1rem;
+
+    // justify-content: space-evenly;
+
+    // & * {
+    //   @include align-labels;
+    // }
+    
+    @include respond(tab-port){
+      flex-direction: row;
+      flex-wrap: nowrap;
+      // justify-content: center;
+    }
+
+    @include respond(phone){
+      grid-column: 1 /-1;
+      grid-row: 2;
+
+    }
+  
+  }
+
+
+// }
+
+.save-btn, .edit-btn, .delete-btn { 
+  // flex-grow: 1;
+  // border-style: none;
+  // cursor: pointer;
+  // width: 50%;
+  @include btn.btn-round;
+
+
+
+}
+
+
+.form {
+
+  &__status { 
+    @include respond(phone){
+      grid-row: 3;
+    }
+  }
+  &__editing{
+    display:flex;
+    flex-direction: column;
+  }
+
+  &__task-details__group{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    @include respond(phone){
+      // display: flex;
+      flex-direction: row;
+    }
+  }
+
+
+
+
+
+  // Styling for status btns container and buttons
+  &__status-btns-box {
+    display: flex;
+    
+    // flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin: auto auto;
+
+    // @include respond(desktop) {
+    //   // flex-direction: column;
+    //   flex-wrap: nowrap;
+    //   row-gap: 1.2rem;
+    // }
+
+    
+  }
+
+  &__radio-group {
+    flex-basis: 23%;
+
+    @include respond(phone){
+      font-size: 1rem;
+    }
+  }
+
+  &__input-radio {
+    position: relative;
+    top: 40%;
+    display: none;
+  }
+
+  &__radio-label {
+    &--incomplete,
+    &--complete,
+    &--in-progress {
+      @include align-labels;
+      
+      &:hover{ 
+        background-color: $color-yellow;
+      }
+    }
+  }
+
+  // // Create pseudo-element (better looking radio button)
+  &__radio-btn {
+    display: flex;
+
+    @include respond(desktop) {
+      justify-content: center;
+    }
+    &::after {
+      content: '';
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-basis: 100%;
+      // width:100%;
+      height: 4rem;
+      border: 1px solid black;
+      border-radius: 5px;
+      // flex-basis: 100%;
+      
+
+      // @include respond(desktop) {
+      //   flex-basis: 20%;
+      // }
+
+      // @include respond(med-desktop) {
+      //   height: 2.5rem;
+      // }
+    }
+  }
+
+  // Insert text content within pseudo-elements
+  &__radio-label--incomplete &__radio-btn::after {
+    content: 'INCOMPLETE';
+
+
+  }
+
+  &__radio-label--in-progress &__radio-btn::after {
+    content: 'IN PROGRESS';
+  }
+
+  &__radio-label--complete &__radio-btn::after {
+    content: 'COMPLETE';
+  }
+
+
+  // When radio button in checked state, change background color of corresponding customized radio button
+  &__input-radio:checked ~ &__radio-label--incomplete &__radio-btn::after {
+    // background-color: #c0702a;
+    background-color: #220E7F;
+    color: white;
+  }
+
+  &__input-radio:checked ~ &__radio-label--in-progress &__radio-btn::after {
+    // background-color: #e8de86;
+    background-color: #220E7F;
+    color: white;
+  }
+
+  &__input-radio:checked ~ &__radio-label--complete &__radio-btn::after {
+    // background-color: #20ade9;
+    background-color: #220E7F;
+    color: white;
+  }
+
+  // Styling for sub-task text input field
+  &__sub-task__input-field {
+    width: 85%;
+    margin: 2rem 0;
+    height: 5rem;
+    border: 1px solid black;
+
+    @include respond(desktop) {
+      width: 85%;
+      margin: 0 auto;
+    }
+
+    @include respond(med-desktop) {
+      height: 3rem;
+    }
+
+    &:focus {
+      outline: none;
+
+      box-shadow: 1px 1px 2px 0.5px rgb(146, 146, 146, 0.7);
+    }
+  }
+}
+
+// Styling for sub-task <ul> and <li>'s
+.subTask {
+  &__container {
+    columns: 100px 2;
+  }
+  &__list {
+    list-style-type: none;
+    // consider using a variable or extend
+    font-size: 1.8rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__item {
+    font-weight: $light;
+    line-height: 1.4;
+  }
+}
+

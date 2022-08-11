@@ -1,0 +1,22 @@
+*,
+*::before,
+*::after { 
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
+  font-family: 'Questrial', sans-serif;
+  font-weight: bold;
+  
+}
+
+html { 
+  box-sizing: border-box;
+  font-size: 62.5%; // new root font size
+ 
+}
+
+
+
+ul { 
+  list-style-type: none;
+}

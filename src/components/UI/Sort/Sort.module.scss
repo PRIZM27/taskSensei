@@ -1,0 +1,30 @@
+
+.sort { 
+  &__controls { 
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    width: 100%;
+  }
+  
+  &__label { 
+    font-size: 1.4rem;
+    color:white;
+    
+  }
+  &__select{
+    font-size: 1.4rem;
+    padding: 1rem;
+    height: 4rem;
+    width: min-content;
+    background-color: #FFF692;
+    border-radius: .8rem;
+  }
+  
+  
+}
+
+option { 
+  padding: 10px;
+}

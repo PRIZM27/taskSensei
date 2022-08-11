@@ -1,0 +1,7 @@
+
+.container { 
+  display: grid;
+  grid-template-columns: [gutter] 8rem repeat(6, 1fr) [gutter] 8rem;
+  grid-template-rows: repeat(3, 15vw) [footer] 8rem;
+}
+

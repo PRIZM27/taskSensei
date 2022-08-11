@@ -1,0 +1,14 @@
+
+@use '../../assets/sass/abstracts/mixins';
+
+p { 
+  font-size: 2rem;
+}
+
+.message--success { 
+  @include mixins.message(success);
+}
+
+.message--error { 
+  @include mixins.message(error);
+}

@@ -1,0 +1,19 @@
+.intro__modal { 
+  position: fixed;
+  top: 30vh;
+  left: 25%;
+  width: 50%;
+  height: 50vh;
+  padding: 2rem;
+  border-radius: .8rem;
+  margin: 0 auto;
+  z-index: 100;
+  overflow: hidden;
+
+  color: #48008C;
+
+  background: linear-gradient(270deg, hsla(264, 11%, 91%, 1) 31%, hsla(258, 31%, 69%, 1) 100%);
+background: -moz-linear-gradient(270deg, hsla(264, 11%, 91%, 1) 31%, hsla(258, 31%, 69%, 1) 100%);
+background: -webkit-linear-gradient(270deg, hsla(264, 11%, 91%, 1) 31%, hsla(258, 31%, 69%, 1) 100%);
+  
+}

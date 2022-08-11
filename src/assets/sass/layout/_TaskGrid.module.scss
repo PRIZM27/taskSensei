@@ -1,0 +1,52 @@
+.task__grid { 
+  grid-area: task-grid;
+
+  border: 1px solid black;
+  display: grid;
+  // grid-template-columns: repeat(3,15vw);
+  grid-template-columns: repeat(3,15vw);
+
+  grid-template-rows: 7rem 35rem;
+
+  gap: 2rem;
+  padding: 1rem 1rem;
+  overflow: scroll;
+
+}
+
+// tasks__squaresContainer for jsx className
+.task__squares-container { 
+  grid-column: 1 / -1;
+  grid-row: 2 / -1;
+
+  display: grid;
+  // grid-template-columns: repeat(auto-fit, minmax(7rem, 15rem));
+  grid-template-columns: [gutter] 4rem repeat(3,minmax(15rem, 20rem)) [gutter] 4rem;
+  grid-template-rows: repeat(auto-fit, minmax(8rem, 15rem));
+  gap: 3rem;
+  padding: 1rem 1rem;
+
+}
+
+.loading { 
+  grid-column: 1/ -1;
+  width: 100%;
+  color: white;
+  font-weight: bold;
+  font-size: 2.2rem;
+}
+
+.error { 
+  color: red;
+  font-size: 2.2rem;
+  grid-column: 1 / -1;
+}
+
+.status { 
+  &__heading { 
+    font-size: 1.6rem;
+    text-align: center;
+  }
+}
+
+
