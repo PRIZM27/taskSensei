@@ -44,20 +44,20 @@ const taskInputReducer = (state, action) => {
 
 let messageContent = '';
 
-
 const TaskForm = (props) => { 
 
   // managed states
+const inputValueRdx = useSelector(state => state.taskSlice.taskInputVal);
 const taskInputRef = useRef();
 
 const [taskState, dispatchTask] = useReducer(taskInputReducer, {
-  value: '',
+  value: inputValueRdx,
   isValid: null,
 })
 
 const tasks = useSelector(state => state.taskSlice.tasks);
 const taskVal = useSelector(state => state.taskSlice.taskInputVal);
-
+const isEditing = useSelector(state => state.taskSlice.isEditing);
 // const [taskInputVal, setTaskInputVal] = useState('');
 // const[inputIsValid, setInputisValid] = useState(null);
 // const [filteredTasks, setFilteredTasks] = useState([]);
@@ -66,33 +66,35 @@ const taskVal = useSelector(state => state.taskSlice.taskInputVal);
 const dispatch = useDispatch();
 
 // functions
+
 const taskInputChangeHandler = async (e) => { 
-  // messageContent = '';
-  dispatchTask({type: 'USER__INPUT', val: e.target.value})
-  // setTaskInputVal(taskState.value);
-  // setInputisValid(taskState.isValid);
 
+  const duplicate = tasks.some(task => task.name.trim().toLowerCase() === taskInputRef.current.value.trim().toLowerCase());
+
+  if(duplicate){
+    messageContent = 'Task with that name already exists. Please choose different name for your task';
+  } else { 
+    messageContent = '';
+  }
+
+  dispatchTask({type: 'USER__INPUT', val: e.target.value});
+  dispatch(taskActions.filterSearchResults(e.target.value));
+
+}
+
+
+const taskInputBlurHandler = (e) => {   
+
+    if(!isEditing){
+      dispatchTask({type:'BLUR'})
+      messageContent = !taskState.isValid ? 'Please enter at least one character' : messageContent;
+    }
     
- const duplicate = tasks.some(task => task.name === taskInputRef.current.value);
-
-if(duplicate){
-  messageContent = 'Task with that name already exists. Please choose different name for your task';
-}
-
-
-}
-
-const taskInputBlurHandler = (e) => { 
-  dispatchTask({type:'BLUR'})
-
-  messageContent = !taskState.isValid ? 'Please enter at least one character' : messageContent;
 }
 
 // const filteredTask = tasks.filter(task => task.name.trim().toLowerCase() === taskInput?.trim().toLowerCase());
 
   const taskSubmitHandler = (e) => { 
-    // messageContent = '';
-    // prevent form sending http request
     e.preventDefault();
 
     // pass the user input value to parent component function
@@ -103,9 +105,13 @@ const taskInputBlurHandler = (e) => {
     
     // setInputisValid(null);
     // setTaskInputVal('');
-    // taskInputRef.current.value = '';
-    
+
+    dispatchTask({type:'USER__INPUT', val: '',});
+    messageContent = '';
+    dispatch(taskActions.setEditing(true));
   }
+
+
 
 // useEffect(() => { 
 //   console.log(taskState.value);

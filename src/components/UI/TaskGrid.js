@@ -17,6 +17,7 @@ const TaskGrid = (props) => {
 
   // const[currentTask, setCurrentTask] = useState('');
   const tasks = useSelector(state => state.taskSlice.tasks);
+  const filteredTasks = useSelector(state => state.taskSlice.filteredTasks);
   const dispatch = useDispatch();
 
 // add styling to indicate current task being worked with
@@ -53,7 +54,6 @@ dispatch(taskActions.makeCurrentTask(currentTaskObj));
 // terminate editing mode
 dispatch(taskActions.setEditing(false));
 
-
 }
 
 let TaskSquareContent
@@ -80,7 +80,10 @@ if(props.error){
 }
 
 // TaskSquare Content based on task status (incomplete, complete, in-progress)
-const IncompleteTask = tasks.filter(task => task.status === 'incomplete').map(task => { 
+let tasksToFilter = tasks;
+if(filteredTasks.length > 0) tasksToFilter = filteredTasks;
+
+const IncompleteTask = tasksToFilter.filter(task => task.status === 'incomplete').map(task => { 
   return  <TaskSquare
   key={task.id} 
   name={task.name}
@@ -89,7 +92,7 @@ const IncompleteTask = tasks.filter(task => task.status === 'incomplete').map(ta
   />
 });
 
-const InProgressTask = tasks.filter(task => task.status === 'in-progress').map(task => { 
+const InProgressTask = tasksToFilter.filter(task => task.status === 'in-progress').map(task => { 
   return  <TaskSquare
   key={task.id} 
   name={task.name}
@@ -98,7 +101,7 @@ const InProgressTask = tasks.filter(task => task.status === 'in-progress').map(t
   />
 });
 
-const CompletedTask = tasks.filter(task => task.status === 'complete').map(task => { 
+const CompletedTask = tasksToFilter.filter(task => task.status === 'complete').map(task => { 
   return  <TaskSquare
   key={task.id} 
   name={task.name}
@@ -116,7 +119,6 @@ const CSSProperties =  {
 };
 
 const override = {...CSSProperties};
-
   if(props.loading) { 
     return (
       <section className={classes.task__grid}>
@@ -132,7 +134,7 @@ const override = {...CSSProperties};
 
   return (
   <section className={classes.task__grid}>
-      <div className={classes['task__squares-container']}>
+      {/* <div className={classes['task__squares-container']}> */}
         <StatusContainer className='container__incomplete'>
           <h3 className={classes['status__heading']}>Incomplete</h3>
           {IncompleteTask}
@@ -145,7 +147,7 @@ const override = {...CSSProperties};
           <h3 className={classes['status__heading']}>Complete</h3>
           {CompletedTask}
         </StatusContainer>
-      </div>
+      {/* </div> */}
   </section>
   )
 }

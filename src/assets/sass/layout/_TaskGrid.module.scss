@@ -1,3 +1,5 @@
+@import '../abstracts/mixins';
+
 .task__grid { 
   grid-area: task-grid;
 
@@ -5,26 +7,33 @@
   display: grid;
   // grid-template-columns: repeat(3,15vw);
   grid-template-columns: repeat(3,15vw);
-
-  grid-template-rows: 7rem 35rem;
+  grid-template-rows: 90%;
+  align-items: center;
 
   gap: 2rem;
   padding: 1rem 1rem;
   overflow: scroll;
 
+  @include respond(tab-port){
+  
+  grid-template-columns: 100%;
+  grid-template-rows: repeat(3, 10rem);
+  justify-content: center;
+  }
+
 }
 
 // tasks__squaresContainer for jsx className
 .task__squares-container { 
-  grid-column: 1 / -1;
-  grid-row: 2 / -1;
+  // grid-column: 1 / -1;
+  // grid-row: 2 / -1;
 
-  display: grid;
-  // grid-template-columns: repeat(auto-fit, minmax(7rem, 15rem));
-  grid-template-columns: [gutter] 4rem repeat(3,minmax(15rem, 20rem)) [gutter] 4rem;
-  grid-template-rows: repeat(auto-fit, minmax(8rem, 15rem));
-  gap: 3rem;
-  padding: 1rem 1rem;
+  // display: grid;
+  // // grid-template-columns: repeat(auto-fit, minmax(7rem, 15rem));
+  // grid-template-columns: [gutter] 4rem repeat(3,minmax(15rem, 20rem)) [gutter] 4rem;
+  // grid-template-rows: repeat(auto-fit, minmax(8rem, 15rem));
+  // gap: 3rem;
+  // padding: 1rem 1rem;
 
 }
 
@@ -46,6 +55,11 @@
   &__heading { 
     font-size: 1.6rem;
     text-align: center;
+
+    @include respond(tab-port){
+      grid-row: 1;
+      justify-self: center;
+    }
   }
 }
 

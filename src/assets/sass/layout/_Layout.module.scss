@@ -23,13 +23,18 @@
   'task-grid task-pane';
 
   @include respond(tab-port){
+    max-width: 95vw;
+
+    max-height: 90vh;
+
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(2, 1fr) 2fr;
+    grid-template-rows: 1fr repeat(2, 2fr) ;
     gap: .8rem;
     grid-template-areas: 
     'task-form'
+    'task-pane'
     'task-grid'
-    'task-pane';
+    ;
   }
 
 

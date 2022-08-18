@@ -1,4 +1,4 @@
-
+@import '../abstracts/mixins';
 // .form__container {
 //   display: flex;
 //   flex-direction: column;
@@ -23,6 +23,7 @@
       outline: none;
     }
 
+  
     &--message { 
       color: white;
       font-size: 1.6rem;
@@ -62,6 +63,12 @@
     &:focus { 
       outline: none;
     }
+
+    @include respond(tab-port){
+      font-size: 4rem;
+      width: 100%;
+    }
+
 
     & p { 
       color: white;

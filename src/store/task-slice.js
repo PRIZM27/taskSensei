@@ -1,11 +1,17 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {format} from 'date-fns';
+
+const month = new Date().toLocaleString('en-US', {month: '2-digit'});
+const day = new Date().toLocaleString('en-US', {day: '2-digit'});
+const year = new Date().getFullYear();
 
 const initialState = {
   taskInputVal: '',
   task: null,
   tasks:[],
+  filteredTasks: [],
   currentTask: null,
-  isEditing: false,
+  isEditing: null,
   status: null,
 }
 
@@ -18,6 +24,10 @@ const taskSlice = createSlice({
     },
     setTaskInputVal(state, action){
       state.taskInputVal = action.payload.val;
+      state.isEditing = false;
+    },
+    setDate(state, action){
+      state.currentTask.date = action.payload;
     },
     enteredTask(state, action){
    
@@ -40,13 +50,8 @@ const taskSlice = createSlice({
     buildTask(state, action) {
       const tempTask = {
         name: action.payload,
-        date: '00/00/22',
-       //  month: '00',
-       //  day: '00',
-       //  year: '0000',
+        date: `${year}-${month}-${day}`,
         status: 'incomplete',
-       //  subTasks: [],
-       //  id: Math.random().toFixed(4),
       };
 
 
@@ -56,9 +61,6 @@ const taskSlice = createSlice({
       // return tempTask;
     },
     addNewTask(state, action){
-    console.log('SAVE BTN CLICKED: ADD NEW TASK');
-    console.log(action.payload, 'payload after save button clicked');
-    console.log(state.tasks, 'state of tasks after save clicked');
       // merge new task with previous tasks state
       if(state.tasks.length > 0){    
       // update tasks array only after user saves the task in taskPane
@@ -75,6 +77,10 @@ const taskSlice = createSlice({
        state.tasks = updatedArr;
       }
     },
+    cancelTask(state){
+      state.currentTask = null;
+      state.taskInputVal = '';
+    },
     removeTask(state, action){
 
       // produce a new array filled with tasks that don't match currentTask
@@ -86,6 +92,7 @@ const taskSlice = createSlice({
       
       // reset currentTask so nothing appears in task pane
       state.currentTask = null;
+      state.isEditing = false;
     },
     makeCurrentTask(state, action){
       state.currentTask = action.payload;
@@ -116,9 +123,43 @@ const taskSlice = createSlice({
       state.currentTask.date = action.payload;
     },
     updateStatus(state, action){
-      state.currentTask.status = action.payload;
+      // change progress status of an already existing task
       state.status = action.payload;
-      console.log(action.payload);
+
+      const updatedTask = {
+          name: state.currentTask.name,
+          date: state.currentTask.date,
+          status: action.payload,
+          id: state.currentTask.id,
+        }
+
+      state.currentTask = updatedTask;
+      
+      // state.currentTask.status = action.payload;
+
+      // update tasks to reflect change
+      // if(state.tasks.some(task => task.name === state.currentTask.name )){
+
+      // state.status = action.payload;
+      
+      // const updatedTask = {
+      //   name: state.currentTask.name,
+      //   date: state.currentTask.date,
+      //   status: action.payload,
+      // }
+      // // state.currentTask = updatedTask;
+
+      //   const taskIndex = state.tasks.findIndex(task => task.id === state.currentTask.id);
+
+      //   state.tasks.splice(taskIndex,1, updatedTask);
+      // }
+      
+    },
+    filterSearchResults(state,action) { 
+      // create new array based on matches to entered value
+      const taskNameArray = state.tasks.filter(task => task.name.trim().toLowerCase().includes(action.payload.trim().toLowerCase()));
+
+      [...state.filteredTasks] = [...taskNameArray];
     }
   }
 })

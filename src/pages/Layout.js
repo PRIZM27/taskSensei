@@ -34,7 +34,8 @@ const Layout = (props) => {
   const tasksRdx = useSelector(state => state.taskSlice.tasks)
   const taskInputVal = useSelector(state => state.taskSlice.taskInputVal);
   const currentTask = useSelector(state => state.taskSlice.currentTask);
-  const status = useSelector(state => state.taskSlice.status);
+  const status = useSelector(state => state.taskSlice.currentTask?.status);
+  const newStatus = useSelector(state => state.taskSlice.status);
   const dispatch = useDispatch();
 
 // Component functions
@@ -62,15 +63,30 @@ const Layout = (props) => {
     // set REDUX state tasks to fetchedTasks
     dispatch(taskActions.setTasks(fetchedTasks))
     // console.log(taskCtx.currentTask, 'current task')
-  },[taskInputVal])
+  },[dispatch])
   
+  useEffect(() => { 
+
+    const identifier = setTimeout(() => { 
+      if(newStatus){
+        fetchTasks({url: `${FIREBASE_URL}/tasks.json`},transformTasks);
+      }
+    }, 200)
+
+    return () => { 
+      console.log('CLEAN UP');
+      clearTimeout(identifier);
+    }
+
+    
+  },[fetchTasks, transformTasks, newStatus]);
 
   useEffect(() => { 
     
     // GET request to server to retrieve stored tasks
     fetchTasks({url: `${FIREBASE_URL}/tasks.json`},transformTasks);
     
-  },[fetchTasks, transformTasks, status]);
+  },[fetchTasks, transformTasks, ])
 
 
 
@@ -89,7 +105,7 @@ const Layout = (props) => {
      
   <div className={classes.container}>
       <TaskForm tasks={tasksRdx} />
-      {currentTask && <Task />}
+      {currentTask && <Task  />}
       <TaskGrid loading={isLoading} tasks={tasksRdx}/>
   </div>
 

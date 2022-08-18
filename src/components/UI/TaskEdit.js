@@ -16,7 +16,8 @@ const TaskEdit = (props) => {
 
   const editingMode = useSelector(state => state.taskSlice.isEditing);
   const task = useSelector(state => state.taskSlice.currentTask);
-  const taskStatus = useSelector(state => state.taskSlice.currentTask.status);
+  const currentTaskStatus = useSelector(state => state.taskSlice.currentTask.status);
+  const newStatus = useSelector(state => state.taskSlice.status);
   const taskId = useSelector(state => state.taskSlice.currentTask.id);
 
   const [newTaskName, setNewTaskName] = useState('');
@@ -31,6 +32,7 @@ const TaskEdit = (props) => {
 
   const changeTaskDateHandler = (e) => {
     taskDate = e.target.value;
+    dispatch(taskActions.setDate(e.target.value));
   }
 
   const activateEditingHandler = () => { 
@@ -45,36 +47,36 @@ const TaskEdit = (props) => {
     e.preventDefault();
     if(newTaskName === ''){
       alert('Please enter at least 1 character for task name')
+      
     }
 
     dispatch(taskActions.updateTaskName(newTaskName));
     dispatch(taskActions.setEditing(false));
   }
 
-  let newStatus;
 
   const statusChangeHandler = (e) => { 
     dispatch(taskActions.updateStatus(e.target.value));
-    newStatus = e.target.value;
   }
   
 
   useEffect(() => {
-    if(newTaskName || newStatus !== taskStatus){
+    if(newTaskName || newStatus === currentTaskStatus){
       sendPutRequest({
         url: `${FIREBASE_URL}/tasks/${taskId}.json`,
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: task,
+        body: {name: task.name, date: task.date, status: newStatus, id: task.id},
       })
     }
 
-    console.log(taskStatus, 'current task status');
+
+    console.log(currentTaskStatus, 'current task status');
     console.log(newStatus, 'new task status');
     console.log(taskId)
-  },[newTaskName, sendPutRequest, newStatus, taskStatus, taskId, task])
+  },[newTaskName, sendPutRequest, newStatus, currentTaskStatus, taskId, task])
 
   
   const editBtn = <button href="#" className={classes["edit-btn"]} onClick={activateEditingHandler}>EDIT</button>;
@@ -125,6 +127,7 @@ const editForm = <div className={editClasses['form__editing']}>
       className={editClasses['form__input-edit--task']}
       name='title'
       placeholder={task.name}
+      value={task.name}
       onChange={changeTaskNameHandler}
       >
       </input>
@@ -163,7 +166,7 @@ const editForm = <div className={editClasses['form__editing']}>
                     type="radio"
                     name="status"
                     value='incomplete'
-                    checked={task.status === 'incomplete'}
+                    checked={currentTaskStatus === 'incomplete'}
                     onChange={statusChangeHandler}
                   />
                   <label htmlFor="incomplete" className={classes["form__radio-label--incomplete"]}>
@@ -177,7 +180,7 @@ const editForm = <div className={editClasses['form__editing']}>
                     type="radio"
                     name="status"
                     value='in-progress'
-                    checked={task.status === 'in-progress'}
+                    checked={currentTaskStatus === 'in-progress'}
                     onChange={statusChangeHandler}
                   />
                   <label htmlFor="in-progress" className={classes["form__radio-label--in-progress"]}>
@@ -191,7 +194,7 @@ const editForm = <div className={editClasses['form__editing']}>
                     type="radio"
                     name="status"
                     value='complete'
-                    checked={task.status === 'complete'}
+                    checked={currentTaskStatus === 'complete'}
                     onChange={statusChangeHandler}
                   />
                   <label htmlFor="complete" className={classes["form__radio-label--complete"]}>

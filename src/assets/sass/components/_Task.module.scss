@@ -16,6 +16,7 @@
     display: flex;
     flex-direction: column;
     gap: 2.4rem;
+    padding: 1rem;
 
     animation: easeIn .3s linear;
     min-height: 100%;
@@ -27,7 +28,6 @@
     background: -webkit-linear-gradient(270deg, hsla(264, 11%, 91%, 1) 31%, hsla(258, 31%, 69%, 1) 100%);
 
   > * { 
-    border: 1px solid red;
     width: 100%;
   }
 
@@ -124,7 +124,6 @@
   .save-or-discard {
 
     // width: 75%;
-    border: 1px solid red;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -168,11 +167,11 @@
 
 
 .form {
-
+  
   &__status { 
-    @include respond(phone){
-      grid-row: 3;
-    }
+    grid-column: 1 / -1;
+    grid-row: 3;
+
   }
   &__editing{
     display:flex;
@@ -273,12 +272,13 @@
   // Insert text content within pseudo-elements
   &__radio-label--incomplete &__radio-btn::after {
     content: 'INCOMPLETE';
-
-
   }
 
   &__radio-label--in-progress &__radio-btn::after {
     content: 'IN PROGRESS';
+    display:flex;
+    flex-direction: column;
+    text-align: center;
   }
 
   &__radio-label--complete &__radio-btn::after {
@@ -306,47 +306,47 @@
   }
 
   // Styling for sub-task text input field
-  &__sub-task__input-field {
-    width: 85%;
-    margin: 2rem 0;
-    height: 5rem;
-    border: 1px solid black;
+  // &__sub-task__input-field {
+  //   width: 85%;
+  //   margin: 2rem 0;
+  //   height: 5rem;
+  //   border: 1px solid black;
 
-    @include respond(desktop) {
-      width: 85%;
-      margin: 0 auto;
-    }
+  //   @include respond(desktop) {
+  //     width: 85%;
+  //     margin: 0 auto;
+  //   }
 
-    @include respond(med-desktop) {
-      height: 3rem;
-    }
+  //   @include respond(med-desktop) {
+  //     height: 3rem;
+  //   }
 
-    &:focus {
-      outline: none;
+  //   &:focus {
+  //     outline: none;
 
-      box-shadow: 1px 1px 2px 0.5px rgb(146, 146, 146, 0.7);
-    }
-  }
+  //     box-shadow: 1px 1px 2px 0.5px rgb(146, 146, 146, 0.7);
+  //   }
+  // }
 }
 
 // Styling for sub-task <ul> and <li>'s
-.subTask {
-  &__container {
-    columns: 100px 2;
-  }
-  &__list {
-    list-style-type: none;
-    // consider using a variable or extend
-    font-size: 1.8rem;
+// .subTask {
+//   &__container {
+//     columns: 100px 2;
+//   }
+//   &__list {
+//     list-style-type: none;
+//     // consider using a variable or extend
+//     font-size: 1.8rem;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//   }
 
-  &__item {
-    font-weight: $light;
-    line-height: 1.4;
-  }
-}
+//   &__item {
+//     font-weight: $light;
+//     line-height: 1.4;
+//   }
+// }
 

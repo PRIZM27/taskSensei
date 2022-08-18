@@ -1,5 +1,6 @@
 
 @import '../animations/animations';
+@import '../abstracts/mixins';
 
 .task { 
   &__square{
@@ -25,6 +26,11 @@
     background: #fff;
     cursor: pointer;
     // calculate min-width and min-height after seeing behavior
+
+    @include respond(tab-port){
+      width: 10rem;
+      grid-row: 2;
+    }
   }
 
   &__heading { 

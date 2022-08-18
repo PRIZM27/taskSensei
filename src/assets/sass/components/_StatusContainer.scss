@@ -1,9 +1,10 @@
+@import '../abstracts/mixins';
+
 .container{ 
 
 &__incomplete, &__complete, &__in-progress{
 
-
-min-width: 70%;
+min-width: 90%;
 height: 30rem;
 border-radius: 1rem;
 padding: 1rem;
@@ -24,22 +25,45 @@ display: flex;
 gap: 1rem;
 flex-direction: column;
 align-content: space-between;
+
+@include respond(tab-port){
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 10rem);
+  grid-row: 5rem 15rem;
+  width: 100%;
+  height: 100%;
+}
+
+
   }
 
   &__incomplete { 
-    grid-column: 2 / span 1;
+    grid-column: 1 / span 1;
+
+    @include respond(tab-port){
+      grid-row: 1;
+    }
   }
 
   &__in--progress { 
-    grid-column: 3 / span 1;
+    grid-column: 2 / span 1;
+    @include respond(tab-port){
+      grid-column: 1;
+      grid-row: 2;
+
+    }
   }
 
   &__complete { 
-    grid-column: 4 / span 1;
+    grid-column: 3 / span 1;
+    @include respond(tab-port){
+      grid-column: 1;
+      grid-row: 3;
+
+    }
   }
   
 }
-
 
 
 
