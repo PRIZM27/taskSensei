@@ -29,6 +29,7 @@ import '../../assets/sass/components/Buttons/_btn.scss';
 
 // action creates related to task data
 import {taskActions} from '../../store/task-slice';
+import { current } from '@reduxjs/toolkit';
 
 
 const Task  = (props) => { 
@@ -39,7 +40,8 @@ const {isLoading, error, sendRequest} = useHttp();
 
 
 // redux state
-const task = useSelector(state => state.taskSlice.currentTask);
+const task = useSelector(state => state.taskSlice.task);
+const currentTask = useSelector(state => state.taskSlice.currentTask);
 const tasks = useSelector(state => state.taskSlice.tasks)
 
 const dispatch = useDispatch();
@@ -96,11 +98,11 @@ const saveTask =  async () => {
 const removeTask = () => {
 
   // remove task active in task pane from state array
-  dispatch(taskActions.removeTask(task))
+  dispatch(taskActions.removeTask(currentTask))
 
   // remove task active in task pane from firebase
   sendRequest({
-    url: `${FIREBASE_URL}/tasks/${task.id}.json`,
+    url: `${FIREBASE_URL}/tasks/${currentTask.id}.json`,
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
@@ -114,9 +116,7 @@ const cancelTaskHandler = () => {
 }
 
 const statusChangeHandler = (e) => { 
-  if(!task){
-    return;
-  }
+
   dispatch(taskActions.updateStatus(e.target.value));
 }
 
@@ -125,9 +125,9 @@ const changeTaskDateHandler = (e) => {
   dispatch(taskActions.setDate(e.target.value));
 }
 
-useEffect(() => { 
-  setIsEditing(taskExists(tasks, task));
-},[task, tasks]);
+// useEffect(() => { 
+//   setIsEditing(taskExists(tasks, currentTask));
+// },[currentTask, tasks]);
 
 const saveBtn = <button href="#" className={classes["save-btn"]} onClick={saveTask}>SAVE</button>;
 const editBtn = <button href="#" className={classes["edit-btn"]}>EDIT</button>;
@@ -136,11 +136,19 @@ const editBtn = <button href="#" className={classes["edit-btn"]}>EDIT</button>;
 // filter the tasks array to find the task that matches the name of the currentTask state
   
 // render helpful message if there is no task
-if(!task) {
-  return <p className={classes.task__message}>Your entered or selected task will appear here</p>
+// if(!task) { 
+//   return <p className={classes.task__message}>Your entered or selected task will appear here</p>
+// }
+
+
+
+
+if(!currentTask && !task) {
+  return <p className={classes.task__message}>No current task at the moment</p>
 }
 
-if(isEditing) {
+
+if(currentTask) {
   return (
     <section className={classes.task__pane}>
             <TaskEdit removeTask={removeTask} trigger={props.trigger} />
@@ -148,9 +156,8 @@ if(isEditing) {
   )
 }
 
-
-
 // render the details of that task to the taskPane section
+// this is a potenail task; user can save or cancel
 return (
   <section className={classes.task__pane}  >
       <h2 className={classes.task__heading}>{task.name}</h2>

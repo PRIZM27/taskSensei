@@ -1,5 +1,4 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {format} from 'date-fns';
 
 const month = new Date().toLocaleString('en-US', {month: '2-digit'});
 const day = new Date().toLocaleString('en-US', {day: '2-digit'});
@@ -30,7 +29,8 @@ const taskSlice = createSlice({
       state.currentTask.date = action.payload;
     },
     enteredTask(state, action){
-   
+      
+      // search  for a duplicate if at least 1 task already exists
       if(state.tasks.length > 0){
         
          // Check for duplicate task
@@ -55,7 +55,7 @@ const taskSlice = createSlice({
       };
 
 
-      state.currentTask = tempTask;
+      state.task = tempTask;
       state.taskInputVal = '';
 
       // return tempTask;
@@ -78,6 +78,7 @@ const taskSlice = createSlice({
       }
     },
     cancelTask(state){
+      state.task = null;
       state.currentTask = null;
       state.taskInputVal = '';
     },
@@ -102,30 +103,44 @@ const taskSlice = createSlice({
     },
 
     updateTaskName(state, action){
+
+      // prevent user from re-naming task to already existing task name
       if(action.payload.trim().toLowerCase() === state.currentTask.name.trim().toLowerCase()){
         alert('TASK NAME EXISTS');
         return;
       }
 
+      // build new obj: include new name and other unchanged properties
       const updatedTask = {
-        ...state.currentTask,
         name: action.payload,
+        date: state.currentTask.date,
+        status: state.currentTask.status,
+        id: state.currentTask.id,
       }
 
-      const taskIndex = state.tasks.findIndex(task => task.id === state.currentTask.id)
-
+      // update the current task with new name
       state.currentTask = updatedTask;
+
+      // reflect changes in the tasks array
+      const taskIndex = state.tasks.findIndex(task => task.id === state.currentTask.id);
+
+      const tasksCopy = [...state.tasks];
+
+      tasksCopy.splice(taskIndex,1, updatedTask);
+
+      state.tasks = tasksCopy;
+
       
-      state.tasks.splice(taskIndex,1, updatedTask);
 
     },
     updateTaskDate(state, action){
       state.currentTask.date = action.payload;
     },
     updateStatus(state, action){
-      // change progress status of an already existing task
-      state.status = action.payload;
+      console.log(action.payload);
+      // state.status = action.payload;
 
+      // change progress status of an already existing task
       const updatedTask = {
           name: state.currentTask.name,
           date: state.currentTask.date,
@@ -133,8 +148,13 @@ const taskSlice = createSlice({
           id: state.currentTask.id,
         }
 
-      state.currentTask = updatedTask;
-      
+        state.currentTask = updatedTask;
+
+        const taskIndex = state.tasks.findIndex(task => task.id === state.currentTask.id);
+        console.log(taskIndex); 
+
+        state.tasks.splice(taskIndex,1, updatedTask);
+
       // state.currentTask.status = action.payload;
 
       // update tasks to reflect change

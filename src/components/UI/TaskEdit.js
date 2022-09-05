@@ -1,4 +1,4 @@
-import { useEffect, useState, Fragment } from 'react';
+import { useEffect, useState, useRef, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import useHttp from '../../hooks/use-http';
 import { taskActions } from '../../store/task-slice';
@@ -11,28 +11,45 @@ import editClasses from './_TaskEdit.module.scss';
 const TaskEdit = (props) => {
 
   const dispatch = useDispatch();
+  const [statusChanged, setStatusChanged] = useState('');
 
   const {sendRequest: sendPutRequest} = useHttp();
 
   const editingMode = useSelector(state => state.taskSlice.isEditing);
-  const task = useSelector(state => state.taskSlice.currentTask);
+  const currentTask = useSelector(state => state.taskSlice.currentTask);
   const currentTaskStatus = useSelector(state => state.taskSlice.currentTask.status);
   const newStatus = useSelector(state => state.taskSlice.status);
+  
   const taskId = useSelector(state => state.taskSlice.currentTask.id);
 
   const [newTaskName, setNewTaskName] = useState('');
+  const [taskChanged, setTaskChanged] = useState(false);
+  const taskRef = useRef();
 
   let taskDate;
 
   const changeTaskNameHandler = (e) => {
     // console.log(e.target.value);
   setNewTaskName(e.target.value);
-
+  setTaskChanged(true);
   }
 
   const changeTaskDateHandler = (e) => {
     taskDate = e.target.value;
     dispatch(taskActions.setDate(e.target.value));
+
+    sendPutRequest({
+      url: `${FIREBASE_URL}/tasks/${taskId}.json`,
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: {
+          name: newTaskName,
+          date: e.target.value,
+          status: currentTask.status,
+      },
+    });
   }
 
   const activateEditingHandler = () => { 
@@ -45,38 +62,60 @@ const TaskEdit = (props) => {
 
   const saveChangesHandler = (e) => { 
     e.preventDefault();
+    setTaskChanged(true);
     if(newTaskName === ''){
       alert('Please enter at least 1 character for task name')
-      
     }
 
     dispatch(taskActions.updateTaskName(newTaskName));
     dispatch(taskActions.setEditing(false));
+
+    sendPutRequest({
+      url: `${FIREBASE_URL}/tasks/${taskId}.json`,
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: {
+          name: newTaskName,
+          date: currentTask.date,
+          status: currentTask.status,
+      },
+    });
+   
   }
 
 
   const statusChangeHandler = (e) => { 
+    setStatusChanged(true);
     dispatch(taskActions.updateStatus(e.target.value));
-  }
-  
 
-  useEffect(() => {
-    if(newTaskName || newStatus === currentTaskStatus){
+  }
+
+  useEffect(() => { 
+    if(statusChanged === true){
+      setTimeout(() => { 
       sendPutRequest({
         url: `${FIREBASE_URL}/tasks/${taskId}.json`,
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: {name: task.name, date: task.date, status: newStatus, id: task.id},
-      })
-    }
+        body: {
+            name: currentTask.name,
+            date: currentTask.date,
+            status: currentTask.status,
+        },
+      });
 
+      setStatusChanged(false)
 
-    console.log(currentTaskStatus, 'current task status');
-    console.log(newStatus, 'new task status');
-    console.log(taskId)
-  },[newTaskName, sendPutRequest, newStatus, currentTaskStatus, taskId, task])
+    },500)
+
+  }
+
+  },[statusChanged, sendPutRequest, currentTask])
+  
 
   
   const editBtn = <button href="#" className={classes["edit-btn"]} onClick={activateEditingHandler}>EDIT</button>;
@@ -119,15 +158,18 @@ const TaskEdit = (props) => {
 // </div>
 
 
+
+
 const editForm = <div className={editClasses['form__editing']}>
   
       <input 
+      ref= {taskRef}
       id='title'
       type='text'
       className={editClasses['form__input-edit--task']}
       name='title'
-      placeholder={task.name}
-      value={task.name}
+      placeholder={currentTask.name}
+      // value={taskRef.current.value}
       onChange={changeTaskNameHandler}
       >
       </input>
@@ -137,7 +179,7 @@ const editForm = <div className={editClasses['form__editing']}>
       type='date'
       className={editClasses['form__input-edit--date']}
       name='date'
-      value={task.date}
+      value={currentTask.date}
       onChange={changeTaskDateHandler}
       disable='true'
       >
@@ -149,8 +191,8 @@ const editForm = <div className={editClasses['form__editing']}>
 
   return (
   <Fragment>
-    {!editingMode && <h2 className={classes.task__heading}>{task.name}</h2>}
-     {!editingMode && <p className={classes.task__date}>{task.date}</p>}
+    {!editingMode && <h2 className={classes.task__heading}>{currentTask.name}</h2>}
+     {!editingMode && <p className={classes.task__date}>{currentTask.date}</p>}
       {editingMode && editForm}
       <div className={classes["save-or-discard"]}>
         {editingMode ? saveChangesBtn : editBtn}

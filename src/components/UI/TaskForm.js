@@ -108,7 +108,7 @@ const taskInputBlurHandler = (e) => {
 
     dispatchTask({type:'USER__INPUT', val: '',});
     messageContent = '';
-    dispatch(taskActions.setEditing(true));
+    // dispatch(taskActions.setEditing(true));
   }
 
 

@@ -49,6 +49,7 @@ const currentTaskObj = tasks.find(task => task.name.trim().toLowerCase() === cli
 
 // pass the the current task obj to designate it as the current task
 // task in task pane will reflect the task square that's clicked
+console.log(currentTaskObj);
 dispatch(taskActions.makeCurrentTask(currentTaskObj));
 
 // terminate editing mode
@@ -58,16 +59,16 @@ dispatch(taskActions.setEditing(false));
 
 let TaskSquareContent
 
-if(props.tasks) { 
-  TaskSquareContent = props.tasks.map(task => {  
-    return <TaskSquare
-    key={task.id} 
-    name={task.name}
-    date={task.date}
-    onClick={makeCurrentTask}
-    />
-  })
-}  
+// if(props.tasks) { 
+//   TaskSquareContent = props.tasks.map(task => {  
+//     return <TaskSquare
+//     key={task.id} 
+//     name={task.name}
+//     date={task.date}
+//     onClick={makeCurrentTask}
+//     />
+//   })
+// }  
 
 let content;
 
@@ -81,6 +82,8 @@ if(props.error){
 
 // TaskSquare Content based on task status (incomplete, complete, in-progress)
 let tasksToFilter = tasks;
+console.log(tasks);
+
 if(filteredTasks.length > 0) tasksToFilter = filteredTasks;
 
 const IncompleteTask = tasksToFilter.filter(task => task.status === 'incomplete').map(task => { 

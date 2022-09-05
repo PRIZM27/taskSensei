@@ -1,9 +1,10 @@
 // hooks imports
-import {useContext, useEffect, useCallback, Fragment} from 'react';
+import {useContext, useEffect, useCallback, useState, Fragment} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // custom hooks imports
 import useHttp from '../hooks/use-http';
+
 
 // helper and config imports
 import { FIREBASE_URL } from '../config/config';
@@ -27,12 +28,14 @@ import IntroModal from '../components/UI/Modals/IntroModal/IntroModal';
 const Layout = (props) => { 
 
   const {isLoading, error, sendRequest: fetchTasks} = useHttp();
+  const [isEditing, setIsEditing] = useState(null);
 
   // task context (context provider)
 
   // react-redux data and tools
   const tasksRdx = useSelector(state => state.taskSlice.tasks)
   const taskInputVal = useSelector(state => state.taskSlice.taskInputVal);
+  const task = useSelector(state => state.taskSlice.task);
   const currentTask = useSelector(state => state.taskSlice.currentTask);
   const status = useSelector(state => state.taskSlice.currentTask?.status);
   const newStatus = useSelector(state => state.taskSlice.status);
@@ -44,6 +47,7 @@ const Layout = (props) => {
 
     // build empty array which will populate destructured objects
     const fetchedTasks = [];
+    console.log(data, 'Data fetched in get request')
 
     // loop through received data and build task object
     for(const taskKey in data){
@@ -64,29 +68,30 @@ const Layout = (props) => {
     dispatch(taskActions.setTasks(fetchedTasks))
     // console.log(taskCtx.currentTask, 'current task')
   },[dispatch])
+
+
   
-  useEffect(() => { 
+  // useEffect(() => { 
 
-    const identifier = setTimeout(() => { 
-      if(newStatus){
-        fetchTasks({url: `${FIREBASE_URL}/tasks.json`},transformTasks);
-      }
-    }, 200)
+  //   const identifier = setTimeout(() => { 
+  //     if(newStatus){
+  //       fetchTasks({url: `${FIREBASE_URL}/tasks.json`},transformTasks);
+  //     }
+  //   }, 200)
 
-    return () => { 
-      console.log('CLEAN UP');
-      clearTimeout(identifier);
-    }
+  //   return () => { 
+  //     console.log('CLEAN UP');
+  //     clearTimeout(identifier);
+  //   }
 
     
-  },[fetchTasks, transformTasks, newStatus]);
+  // },[fetchTasks, transformTasks, newStatus]);
 
   useEffect(() => { 
     
     // GET request to server to retrieve stored tasks
     fetchTasks({url: `${FIREBASE_URL}/tasks.json`},transformTasks);
-    
-  },[fetchTasks, transformTasks, ])
+  },[fetchTasks, transformTasks ])
 
 
 
@@ -105,8 +110,8 @@ const Layout = (props) => {
      
   <div className={classes.container}>
       <TaskForm tasks={tasksRdx} />
-      {currentTask && <Task  />}
-      <TaskGrid loading={isLoading} tasks={tasksRdx}/>
+      <Task />
+      <TaskGrid loading={isLoading}  error={error}/>
   </div>
 
   )
