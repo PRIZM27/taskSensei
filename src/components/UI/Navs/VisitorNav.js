@@ -7,8 +7,8 @@ const activeLink = `${classes['nav--top__link']} + ${classes.active}`
 const VisitorNav = () => { 
   return (
     <nav className={classes['nav--top']}>
-    <div className={classes.logo}>TaskReact</div>
-    <ul className={classes['nav--top__list']}>
+    <div className={classes.logo}>Task Sensei</div>
+    {/* <ul className={classes['nav--top__list']}>
     <li><NavLink to="/register" className={(navData) => navData.isActive ? activeLink : standardLink}>Create Account</NavLink>
       </li>
       <li><NavLink to="/login" className={(navData) => navData.isActive ? activeLink : standardLink}>Login</NavLink>
@@ -16,7 +16,7 @@ const VisitorNav = () => {
       <li>
         <NavLink to='/faq' className={(navData) => navData.isActive ? activeLink : standardLink}>FAQ</NavLink>
       </li>
-    </ul>
+    </ul> */}
   </nav>
   )
 }

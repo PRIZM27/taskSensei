@@ -47,7 +47,6 @@ const Layout = (props) => {
 
     // build empty array which will populate destructured objects
     const fetchedTasks = [];
-    console.log(data, 'Data fetched in get request')
 
     // loop through received data and build task object
     for(const taskKey in data){
@@ -88,9 +87,9 @@ const Layout = (props) => {
   // },[fetchTasks, transformTasks, newStatus]);
 
   useEffect(() => { 
-    
     // GET request to server to retrieve stored tasks
     fetchTasks({url: `${FIREBASE_URL}/tasks.json`},transformTasks);
+
   },[fetchTasks, transformTasks ])
 
 
@@ -109,7 +108,7 @@ const Layout = (props) => {
   return ( 
      
   <div className={classes.container}>
-      <TaskForm tasks={tasksRdx} />
+      <TaskForm />
       <Task />
       <TaskGrid loading={isLoading}  error={error}/>
   </div>

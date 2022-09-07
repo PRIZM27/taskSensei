@@ -1,9 +1,9 @@
-
+@import '../../../assets/sass/abstracts/mixins';
 
 .nav--top{
   display: flex;
   width: 100%;
-  height: 7rem;
+  height: 9rem;
   background-color: #330091;
   color: white;
   justify-content: space-between;
@@ -14,7 +14,7 @@
   &__list{ 
     display:flex;
     justify-content: flex-end;
-    width: 100%;
+    width: 90%;
   }
 
   &__link { 
@@ -26,13 +26,17 @@
 
   }
 
+  @include respond(tab-land){
+    justify-content: center;
+  }
+
 
 }
 
 .logo { 
   font-size: 3rem;
   justify-self: flex-start;
-  display: inline;
+  min-width: 7rem;
 }
 
 .active { 

@@ -42,7 +42,8 @@
 
 
 @include mixins.respond(tab-port){
-  width: min-content;
+  width: 90%;
+  height: 1.8rem;
 }
 
 

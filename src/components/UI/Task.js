@@ -125,20 +125,9 @@ const changeTaskDateHandler = (e) => {
   dispatch(taskActions.setDate(e.target.value));
 }
 
-// useEffect(() => { 
-//   setIsEditing(taskExists(tasks, currentTask));
-// },[currentTask, tasks]);
 
 const saveBtn = <button href="#" className={classes["save-btn"]} onClick={saveTask}>SAVE</button>;
 const editBtn = <button href="#" className={classes["edit-btn"]}>EDIT</button>;
-
-// logic for which task to render after task created
-// filter the tasks array to find the task that matches the name of the currentTask state
-  
-// render helpful message if there is no task
-// if(!task) { 
-//   return <p className={classes.task__message}>Your entered or selected task will appear here</p>
-// }
 
 
 

@@ -45,12 +45,19 @@
 
   @include respond(phone){
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    // grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+
+    grid-template-rows: repeat(4, 1fr);
+    // grid-template-areas: 
+    // 'taskname taskdate'
+    // 'taskbtns taskbtns'
+    // 'statusbtns statusbtns';
     grid-template-areas: 
-    'taskname taskdate'
-    'taskbtns taskbtns'
-    'statusbtns statusbtns'
+    'taskname '
+    'taskdate '
+    'taskbtns'
+    'statusbtns'
   }
   }
 
@@ -79,8 +86,10 @@
     font-size: 1rem;
     text-align: center;
     font-size: 2rem;
+
     @include respond(med-desktop) {
       font-size: 1.8rem;
+      grid-row: 2;
     }
   }
 
@@ -138,14 +147,14 @@
     // }
     
     @include respond(tab-port){
-      flex-direction: row;
+      flex-direction: column;
       flex-wrap: nowrap;
       // justify-content: center;
     }
 
     @include respond(phone){
       grid-column: 1 /-1;
-      grid-row: 2;
+      grid-row: 3;
 
     }
   
@@ -155,12 +164,7 @@
 // }
 
 .save-btn, .edit-btn, .delete-btn { 
-  // flex-grow: 1;
-  // border-style: none;
-  // cursor: pointer;
-  // width: 50%;
   @include btn.btn-round;
-
 
 
 }
@@ -170,7 +174,7 @@
   
   &__status { 
     grid-column: 1 / -1;
-    grid-row: 3;
+    grid-row: 4;
 
   }
   &__editing{
@@ -202,15 +206,8 @@
     // flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-    margin: auto auto;
+    margin: 0 auto;
 
-    // @include respond(desktop) {
-    //   // flex-direction: column;
-    //   flex-wrap: nowrap;
-    //   row-gap: 1.2rem;
-    // }
-
-    
   }
 
   &__radio-group {

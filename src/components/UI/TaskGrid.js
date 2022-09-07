@@ -25,7 +25,6 @@ const makeCurrentTask = (e) => {
 
 // store the clicked task DOM element in a variable
 const clickedTaskEl = e.target.closest('.task__square');
-console.log(clickedTaskEl);
 
 // Drill down into clicked task element and  store task name in a variable
 const clickedTaskElName = clickedTaskEl.querySelector('h3').textContent.trim().toLowerCase();
@@ -49,7 +48,6 @@ const currentTaskObj = tasks.find(task => task.name.trim().toLowerCase() === cli
 
 // pass the the current task obj to designate it as the current task
 // task in task pane will reflect the task square that's clicked
-console.log(currentTaskObj);
 dispatch(taskActions.makeCurrentTask(currentTaskObj));
 
 // terminate editing mode
@@ -82,7 +80,6 @@ if(props.error){
 
 // TaskSquare Content based on task status (incomplete, complete, in-progress)
 let tasksToFilter = tasks;
-console.log(tasks);
 
 if(filteredTasks.length > 0) tasksToFilter = filteredTasks;
 

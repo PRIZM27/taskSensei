@@ -56,11 +56,8 @@ const [taskState, dispatchTask] = useReducer(taskInputReducer, {
 })
 
 const tasks = useSelector(state => state.taskSlice.tasks);
-const taskVal = useSelector(state => state.taskSlice.taskInputVal);
 const isEditing = useSelector(state => state.taskSlice.isEditing);
-// const [taskInputVal, setTaskInputVal] = useState('');
-// const[inputIsValid, setInputisValid] = useState(null);
-// const [filteredTasks, setFilteredTasks] = useState([]);
+
 
 // used hooks
 const dispatch = useDispatch();
@@ -84,7 +81,6 @@ const taskInputChangeHandler = async (e) => {
 
 
 const taskInputBlurHandler = (e) => {   
-
     if(!isEditing){
       dispatchTask({type:'BLUR'})
       messageContent = !taskState.isValid ? 'Please enter at least one character' : messageContent;
@@ -92,7 +88,7 @@ const taskInputBlurHandler = (e) => {
     
 }
 
-// const filteredTask = tasks.filter(task => task.name.trim().toLowerCase() === taskInput?.trim().toLowerCase());
+
 
   const taskSubmitHandler = (e) => { 
     e.preventDefault();
@@ -101,45 +97,14 @@ const taskInputBlurHandler = (e) => {
     if(taskState.isValid === true){
       dispatch(taskActions.enteredTask(taskState.value));
       dispatch(taskActions.buildTask(taskState.value));
+      dispatch(taskActions.makeCurrentTask(null));
     }
     
-    // setInputisValid(null);
-    // setTaskInputVal('');
+    
 
     dispatchTask({type:'USER__INPUT', val: '',});
     messageContent = '';
-    // dispatch(taskActions.setEditing(true));
   }
-
-
-
-// useEffect(() => { 
-//   console.log(taskState.value);
-// },[taskState.value]);
-   
-// useEffect(()=> {
-//   // logic for filtering tasks array for any tasks matching user input
-//   const identifier = setTimeout(() => { 
-//     console.log('Filtering tasks array for matching tasks')
-
-//     // const filterTasksHandler = () => { 
-//     //   tasks.filter(task => task.name.trim().toLowerCase().includes(taskInputVal.trim().toLowerCase()));
-//     // }
-
-//     // create an array of tasks that matches user input
-//     if(tasks){
-//       console.log(tasks.filter(task => task.name.trim().toLowerCase().includes(taskInputVal.trim().toLowerCase())));
-//     }
-
-//     // clean up function for better performance
-//     return () => { 
-//       console.log('CLEANUP');
-//       clearTimeout(identifier);
-//     }
-  
-//   },500)
-// },[tasks, taskInputVal]);  
-
 
 
   return (
@@ -162,9 +127,7 @@ const taskInputBlurHandler = (e) => {
           {/* {taskState.isValid === false && <p className={classes['task__input--message'] }>Enter valid task name (at least 1 character)</p>} */}
           {messageContent && <Message status={messageContent ? 'error' : ''}>{messageContent}</Message>}
         </div>
-      </form>
-
-  
+      </form>  
     </Fragment>
      
   )

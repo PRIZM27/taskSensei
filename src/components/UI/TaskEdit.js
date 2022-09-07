@@ -45,7 +45,7 @@ const TaskEdit = (props) => {
         'Content-Type': 'application/json'
       },
       body: {
-          name: newTaskName,
+          name: currentTask.name,
           date: e.target.value,
           status: currentTask.status,
       },
@@ -63,10 +63,11 @@ const TaskEdit = (props) => {
   const saveChangesHandler = (e) => { 
     e.preventDefault();
     setTaskChanged(true);
+    
     if(newTaskName === ''){
-      alert('Please enter at least 1 character for task name')
+      dispatch(taskActions.updateTaskName(currentTask.name));
     }
-
+  
     dispatch(taskActions.updateTaskName(newTaskName));
     dispatch(taskActions.setEditing(false));
 
@@ -114,7 +115,7 @@ const TaskEdit = (props) => {
 
   }
 
-  },[statusChanged, sendPutRequest, currentTask])
+  },[statusChanged, sendPutRequest, currentTask, taskId])
   
 
   
@@ -169,7 +170,7 @@ const editForm = <div className={editClasses['form__editing']}>
       className={editClasses['form__input-edit--task']}
       name='title'
       placeholder={currentTask.name}
-      // value={taskRef.current.value}
+      value={taskRef?.current?.value}
       onChange={changeTaskNameHandler}
       >
       </input>

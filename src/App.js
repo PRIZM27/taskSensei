@@ -18,13 +18,7 @@ function App() {
     <Provider store={store} > 
       <MainNavigation />
       <Routes>
-        <Route path='/tasks' element={<Layout />}/>
-        <Route path='/profile/*' element={<Profile />}>
-          <Route path ="outlet-page" element={<h1 style={{color:'black',}}>Outlet Page</h1>} />
-        </Route>
-        <Route path='/faq' element={<Faq />}/>
-        {/* <Route path ='*' element={<h1>NOT FOUND</h1>}/> */}
-        <Route path='/login' element={<Login />}/>
+        <Route path='/' element={<Layout />}/>
       </Routes>   
     </Provider>
   );

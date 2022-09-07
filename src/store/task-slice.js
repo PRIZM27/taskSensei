@@ -4,6 +4,8 @@ const month = new Date().toLocaleString('en-US', {month: '2-digit'});
 const day = new Date().toLocaleString('en-US', {day: '2-digit'});
 const year = new Date().getFullYear();
 
+
+
 const initialState = {
   taskInputVal: '',
   task: null,
@@ -13,6 +15,10 @@ const initialState = {
   isEditing: null,
   status: null,
 }
+
+// fns for common patterns
+
+
 
 const taskSlice = createSlice({
   name: 'task',
@@ -103,13 +109,14 @@ const taskSlice = createSlice({
     },
 
     updateTaskName(state, action){
-
       // prevent user from re-naming task to already existing task name
-      if(action.payload.trim().toLowerCase() === state.currentTask.name.trim().toLowerCase()){
-        alert('TASK NAME EXISTS');
+      const filtered = state.tasks.filter(task => task.name !== state.currentTask.name);
+      const find = filtered.find(task => task.name.trim().toLowerCase() === state.currentTask.name.trim().toLowerCase());
+
+      if(find){ 
+        alert('TASK NAME EXISTS AND STORED IN FIND VARIABLE');
         return;
       }
-
       // build new obj: include new name and other unchanged properties
       const updatedTask = {
         name: action.payload,
@@ -130,8 +137,6 @@ const taskSlice = createSlice({
 
       state.tasks = tasksCopy;
 
-      
-
     },
     updateTaskDate(state, action){
       state.currentTask.date = action.payload;
@@ -151,28 +156,11 @@ const taskSlice = createSlice({
         state.currentTask = updatedTask;
 
         const taskIndex = state.tasks.findIndex(task => task.id === state.currentTask.id);
+
         console.log(taskIndex); 
 
         state.tasks.splice(taskIndex,1, updatedTask);
 
-      // state.currentTask.status = action.payload;
-
-      // update tasks to reflect change
-      // if(state.tasks.some(task => task.name === state.currentTask.name )){
-
-      // state.status = action.payload;
-      
-      // const updatedTask = {
-      //   name: state.currentTask.name,
-      //   date: state.currentTask.date,
-      //   status: action.payload,
-      // }
-      // // state.currentTask = updatedTask;
-
-      //   const taskIndex = state.tasks.findIndex(task => task.id === state.currentTask.id);
-
-      //   state.tasks.splice(taskIndex,1, updatedTask);
-      // }
       
     },
     filterSearchResults(state,action) { 

@@ -9,8 +9,8 @@
     gap: 2.4rem;
 
     @include respond(phone){
-      flex-direction: row;
-      grid-column: 1;
+      // flex-direction: row;
+      grid-column: 1 / -1;
       grid-row: 1;
     }
   
@@ -30,7 +30,6 @@
   }
 
 
-
   &__input-edit--task{
    
     width: 90%;
@@ -39,18 +38,26 @@
     text-align: center;
     border-style: none;
     color: gray;
+
+    &:focus { 
+      color: $color-black
+      
+    }
   
   }
 
   &__input-edit--date { 
-    width: 100%;
     display: block;
     height: 4rem;
     text-align: center;
-    justify-self: center;
+    align-self: center;
 
     @include respond(tab-land){
       width: 90%;
+    }
+
+    @include respond(tab-port) { 
+      width: 100%;
     }
   }
 
@@ -58,13 +65,10 @@
     
     @include respond(tab-port) { 
       height: 2.2rem;
-      width: min-content;
       // word-wrap: break-word;
     }
-
-   
   
-  }
+    }
   }
 
   
