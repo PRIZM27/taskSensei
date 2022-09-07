@@ -36,7 +36,7 @@ Your tasks will remain in-tact, even after you leave Task Sensei or refresh the 
 
 ## That's it!
 
-I hope you enjoy using Task Sensei! New features are planned for the application, and you'll be able to find them in this repository. Thanks for stopping by.
+I hope you enjoy using Task Sensei. New features are planned for the application, and you'll be able to find them in this repository. Thanks for stopping by.
 
 ## Under the Hood
 
