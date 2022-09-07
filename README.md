@@ -2,7 +2,7 @@
 
 Task Sensei is a simple Task Manager that lets you create tasks, set due dates, and organize tasks based on their status (Incomplete, In-Progress, and Complete).
 
-You can use Task Sensei by visiting https://task-sensei.netlify.app/
+You can use Task Sensei by visiting https://tasksreact-e808b.web.app/
 
 ## Walkthrough
 
